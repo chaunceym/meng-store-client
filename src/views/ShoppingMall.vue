@@ -88,7 +88,6 @@
         url: MockURL.getShoppingMallInfo,
         method: 'get'
       }).then(data => {
-        console.log(data);
         this.category = JSON.parse(JSON.stringify(data.data.data.category));
         this.adBanner = data.data.data.advertesPicture.PICTURE_ADDRESS;
         this.swiperImages = data.data.data.slides;

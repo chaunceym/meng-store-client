@@ -31,7 +31,6 @@
 
     @Watch('floorData')
     onFloorChanged(newVal: []) {
-      console.log(this.floorData);
       this.floor1One = this.floorData[0];
       this.floor1Two = this.floorData[1];
       this.floor1Three = this.floorData[2];

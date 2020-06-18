@@ -1,7 +1,7 @@
 <template>
   <div>
     <van-nav-bar
-      title="用户注册"
+      title="用户登录"
       left-text="返回"
       left-arrow
       @click-left="goBack"
@@ -27,7 +27,7 @@
         :error-message="passwordErrorMsg"
       />
       <div class="register-button">
-        <van-button @click="registerAction" :loading="openLoading" type="primary" size="large">马上注册
+        <van-button @click="loginAction" :loading="openLoading" type="primary" size="large">马上登录
         </van-button>
       </div>
     </div>
@@ -67,14 +67,14 @@
 
     }
 
-    registerAction() {
+    loginAction() {
       this.checkForm() && this.axiosRegisterUser();
     }
 
     axiosRegisterUser() {
       this.openLoading = true;
       axios({
-        url: MockURL.registerUser,
+        url: MockURL.loginUser,
         method: 'post',
         data: {
           username: this.username,
@@ -82,15 +82,29 @@
         }
       })
         .then(data => {
-          if (data.data.code === 200) {
+          if (data.data.code === 200 && data.data.message) {
             Toast.success('登录成功');
             this.$router.push('/');
+            localStorage.username = this.username;
+          } else if (data.data.code === 200 && !data.data.message) {
+            Toast.fail('密码错误');
+            this.openLoading = false;
+          } else if (data.data.code === 500) {
+            Toast.fail(data.data.message);
+            this.openLoading = false;
           }
         })
-        .catch(err => {
+        .catch(() => {
           Toast.fail('登录失败');
           this.openLoading = false;
         });
+    }
+
+    created() {
+      if (localStorage.username) {
+        Toast.success('您已经登录');
+        this.$router.push('/');
+      }
     }
   }
 </script>
