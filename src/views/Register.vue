@@ -25,7 +25,7 @@
         required
       />
       <div class="register-button">
-        <van-button @click="axiosRegisterUser" type="primary" size="large">马上注册
+        <van-button @click="axiosRegisterUser" :loading="openLoading" type="primary" size="large">马上注册
         </van-button>
       </div>
     </div>
@@ -44,11 +44,12 @@
   export default class Register extends Vue {
     username = '';
     password = '';
-    icon = '';
+    openLoading = false;
 
     goBack() {
       this.$router.go(-1);
     }
+
 
     axiosRegisterUser() {
       axios({
@@ -63,8 +64,9 @@
           console.log(data);
           if (data.data.code === 200) {
             Toast.success('注册成功');
+            this.openLoading = true;
+            this.$router.push('/');
           } else {
-            console.log(data.data.message);
             Toast.fail('注册失败');
           }
         })
