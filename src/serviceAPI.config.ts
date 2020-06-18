@@ -5,7 +5,8 @@ const MockURL = {
   getGoodsInfo: BASE_URL + 'getGoodsInfo',
   registerUser: LOCAL_URL + 'user/register',
   loginUser: LOCAL_URL + 'user/login',
-  getDetailGoodInfo: LOCAL_URL + 'goods/getDetailGoodInfo'
+  getDetailGoodInfo: LOCAL_URL + 'goods/getDetailGoodInfo',
+  getCategoryList: LOCAL_URL + 'goods/getCategoryList'
 };
 
 module.exports = MockURL;

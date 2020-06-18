@@ -14,7 +14,7 @@
     <div class="good-name">{{goodInfo.NAME}}</div>
     <div class="goods-price">价格: {{goodInfo.PRESENT_PRICE || 0.00}}</div>
     <div>
-      <van-tabs>
+      <van-tabs sticky>
         <van-tab title="商品详情">
           <div class="detail">{{goodInfo.DETAIL || '暂无数据'}}</div>
         </van-tab>
