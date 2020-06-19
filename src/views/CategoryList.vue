@@ -27,7 +27,7 @@
           <div :style="`height: ${this.listDiv}`" id="list-div">
             <van-pull-refresh v-model="isRefresh" @refresh="onRefresh">
               <van-list :finished-text="finishedText" v-model="loading" :finished="finished" @load="onLoad">
-                <div :key="index" v-for="(item,index) in goodsList" class="list-item">
+                <div @click="goGoodsInfo(item.ID)" :key="index" v-for="(item,index) in goodsList" class="list-item">
                   <div class="list-item-img">
                     <img :src="item.IMAGE1" width="100%" :onerror="errorImg"/>
                   </div>
@@ -54,7 +54,6 @@
   import axios from 'axios';
   import MockURL from '@/serviceAPI.config';
   import {Toast} from 'vant';
-  import logger from 'vuex/dist/logger';
 
   @Component
   export default class CategoryList extends Vue {
@@ -72,6 +71,10 @@
     isRefresh = false;
     finishedText = '';
     errorImg = 'this.src="' + require('@/assets/images/nodata.png') + '"';
+
+    goGoodsInfo(id: string) {
+      this.$router.push({name: 'Good', params: {goodId: id}});
+    }
 
     onRefresh() {
       setTimeout(() => {

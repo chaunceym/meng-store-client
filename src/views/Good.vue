@@ -9,14 +9,17 @@
       />
     </div>
     <div class="top-image-div">
-      <img :src="goodInfo.IMAGE1" alt="detail-image" width="60%">
+      <img :onerror="errorImg" :src="goodInfo.IMAGE1" alt="detail-image" width="60%">
     </div>
     <div class="good-name">{{goodInfo.NAME}}</div>
     <div class="goods-price">价格: {{goodInfo.PRESENT_PRICE || 0.00}}</div>
     <div>
       <van-tabs sticky>
         <van-tab title="商品详情">
-          <div class="detail">{{goodInfo.DETAIL || '暂无数据'}}</div>
+          <div class="detail">
+            <div class="detail-img" v-for="(item,index) in detailImg" :key="index" v-html="`${item}>`">
+            </div>
+          </div>
         </van-tab>
         <van-tab title="评价">
           正在制作
@@ -47,15 +50,17 @@
 
   @Component
   export default class Goods extends Vue {
-    goodId = '001cee156647463a98a2a7d44a2e3468';
+    goodId = '';
     goodInfo = {};
+    errorImg = 'this.src="' + require('@/assets/images/nodata.png') + '"';
+    detailImg = [];
 
     goBack() {
       this.$router.go(-1);
     }
 
     created() {
-      // this.goodId = this.$route.query.goodsId as string;
+      this.goodId = this.$route.query.goodId ? this.$route.query.goodId : this.$route.params.goodId;
       this.getInfo();
     }
 
@@ -68,19 +73,16 @@
         }
       })
         .then(data => {
-          console.log(data);
           const {code, message} = data.data;
           if (code === 200 && message) {
             this.goodInfo = message;
-            if (!this.goodInfo.IMAGE1) {
-              this.goodInfo.IMAGE1 = require('../assets/images/nodata.png');
-            }
+            this.detailImg = this.goodInfo.DETAIL.split('>');
           } else {
             Toast('服务器错误,请稍后尝试');
           }
         })
         .catch(err => {
-          console.log(err);
+          Toast('服务器错误,请稍后尝试');
         });
     }
   }
@@ -90,7 +92,9 @@
   .good-name {
     padding-top: .5rem;
   }
-
+  .detail{
+      margin-top: .5rem;
+  }
   .good-bottom {
     position: fixed;
     bottom: 0px;
@@ -100,6 +104,7 @@
     display: flex;
     flex-direction: row;
     flex-flow: nowrap;
+
     > div {
       flex: 1;
       padding: 5px;
