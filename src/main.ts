@@ -6,9 +6,9 @@ import store from './store';
 import VueAwesomeSwiper from 'vue-awesome-swiper';
 import 'swiper/css/swiper.css';
 
-import {Tab, Tabs, Button, Row, Col, Icon, Swipe, SwipeItem, Lazyload, List, NavBar, Field} from 'vant';
+import {Tab, Tabs, PullRefresh,Button, Row, Col, Icon, Swipe, SwipeItem, Lazyload, List, NavBar, Field} from 'vant';
 
-Vue.use(Button).use(Tab).use(Tabs).use(Row).use(Col).use(Icon)
+Vue.use(Button).use(Tab).use(PullRefresh).use(Tabs).use(Row).use(Col).use(Icon)
   .use(Swipe).use(SwipeItem).use(Lazyload).use(List).use(NavBar).use(Field);
 Vue.use(VueAwesomeSwiper, /* { default options with global component } */);
 

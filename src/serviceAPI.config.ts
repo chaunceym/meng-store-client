@@ -8,6 +8,7 @@ const MockURL = {
   getDetailGoodInfo: LOCAL_URL + 'goods/getDetailGoodInfo',
   getCategoryList: LOCAL_URL + 'goods/getCategoryList',
   getCategorySubList: LOCAL_URL + 'goods/getCategorySubList',
+  getGoodsListByCategorySubId: LOCAL_URL + 'goods/getGoodsListByCategorySubId'
 };
 
 module.exports = MockURL;
