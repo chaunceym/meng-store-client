@@ -34,7 +34,7 @@
                   <div class="list-item-text">
                     <div>{{item.NAME}}</div>
                     <div>
-                      <span>￥ {{item.ORI_PRICE}}</span>
+                      <span>￥ {{filter(item.PRESENT_PRICE)}}</span>
                       <van-button type="danger" size="mini">购买</van-button>
                     </div>
                   </div>
@@ -54,6 +54,7 @@
   import axios from 'axios';
   import MockURL from '@/serviceAPI.config';
   import {Toast} from 'vant';
+  import toMoney from '@/filter/moneyFilter';
 
   @Component
   export default class CategoryList extends Vue {
@@ -74,6 +75,10 @@
 
     goGoodsInfo(id: string) {
       this.$router.push({name: 'Good', params: {goodId: id}});
+    }
+
+    filter(value: number) {
+      return toMoney(value);
     }
 
     onRefresh() {

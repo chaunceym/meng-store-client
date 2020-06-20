@@ -12,7 +12,7 @@
       <img :onerror="errorImg" :src="goodInfo.IMAGE1" alt="detail-image" width="60%">
     </div>
     <div class="good-name">{{goodInfo.NAME}}</div>
-    <div class="goods-price">价格: {{goodInfo.PRESENT_PRICE || 0.00}}</div>
+    <div class="goods-price">价格: {{filter(goodInfo.PRESENT_PRICE)}}</div>
     <div>
       <van-tabs sticky>
         <van-tab title="商品详情">
@@ -28,7 +28,7 @@
     </div>
     <div class="good-bottom">
       <div>
-        <van-button size="large" type="warning">
+        <van-button @click="addGoodsToCart" size="large" type="warning">
           加入购物车
         </van-button>
       </div>
@@ -44,6 +44,7 @@
 <script lang="ts">
   import Vue from 'vue';
   import {Component} from 'vue-property-decorator';
+  import toMoney from '@/filter/moneyFilter';
   import axios from 'axios';
   import MockURL from '@/serviceAPI.config';
   import {Toast} from 'vant';
@@ -51,12 +52,54 @@
   @Component
   export default class Goods extends Vue {
     goodId = '';
-    goodInfo = {};
+    goodInfo: GoodInfo = {
+      ID: '',
+      NAME: '',
+      PRESENT_PRICE: 0,
+      IMAGE1: '',
+    };
     errorImg = 'this.src="' + require('@/assets/images/nodata.png') + '"';
     detailImg = [];
 
     goBack() {
       this.$router.go(-1);
+    }
+
+    filter(value: number) {
+      return toMoney(value);
+    }
+
+    addGoodsToCart() {
+      const cartInfo = localStorage.cartInfo ? JSON.parse(localStorage.cartInfo) : [];
+      if (cartInfo.length !== 0) {
+        const isHaveGoods = cartInfo.find((cart: CartGoodInfo) => cart.goodId === this.goodId);
+        if (isHaveGoods) {
+          cartInfo.map((cart: CartGoodInfo) => {
+            if (cart.goodId === this.goodId) {
+              cart.count++;
+            }
+          });
+          localStorage.cartInfo = JSON.stringify(cartInfo);
+          Toast.success('添加到购物车');
+        } else {
+          this.addOneGood(cartInfo);
+        }
+      } else {
+        this.addOneGood(cartInfo);
+      }
+    }
+
+    addOneGood(cartInfo: CartGoodInfo[]) {
+      const cartGoodInfo: CartGoodInfo = {
+        goodId: this.goodInfo.ID,
+        name: this.goodInfo.NAME,
+        price: this.goodInfo.PRESENT_PRICE,
+        image: this.goodInfo.IMAGE1,
+        count: 1
+      };
+      cartInfo.push(cartGoodInfo);
+      Toast.success('添加购物车');
+      localStorage.setItem('cartInfo', JSON.stringify(cartInfo));
     }
 
     created() {
@@ -92,9 +135,11 @@
   .good-name {
     padding-top: .5rem;
   }
-  .detail{
-      margin-top: .5rem;
+
+  .detail {
+    margin-top: .5rem;
   }
+
   .good-bottom {
     position: fixed;
     bottom: 0px;

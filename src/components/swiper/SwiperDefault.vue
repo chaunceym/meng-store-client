@@ -5,7 +5,7 @@
         <div class="recommend-item">
           <img :src="item.image" width="80%"/>
           <div>{{item.goodsName}}</div>
-          <div>￥{{item.price || 0.00}} (￥{{item.mallPrice || 0.00}})</div>
+          <div>￥{{filter(item.price)}} (￥{{filter(item.mallPrice)}})</div>
         </div>
       </swiper-slide>
     </swiper>
@@ -15,6 +15,7 @@
 <script lang="ts">
   import Vue from 'vue';
   import {Component, Prop} from 'vue-property-decorator';
+  import toMoney from '@/filter/moneyFilter';
 
   @Component
   export default class SwiperDefault extends Vue {
@@ -33,6 +34,9 @@
       }
     };
 
+    filter(value: number) {
+      return toMoney(value);
+    }
   }
 </script>
 
