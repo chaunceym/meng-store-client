@@ -9,10 +9,15 @@
           <img width="100%" :src="item.image" alt="">
         </div>
         <div class="good-text">
-          <div>{{item.name}}</div>
-          <div>
-            <span>{{filter(item.price)}}</span>
-            <span>数量: {{item.count}}</span>
+          <div class="good-info">
+            <div>{{item.name}}</div>
+            <div>
+              <span>{{filter(item.price)}}</span>
+              <span>数量: {{item.count}}</span>
+            </div>
+          </div>
+          <div class="good-total">
+            共计: {{filter(item.price * item.count)}}
           </div>
         </div>
       </div>
@@ -81,7 +86,8 @@
       > div {
         padding-top: 2rem;
         text-decoration: underline;
-        >a {
+
+        > a {
           color: #f10;
         }
       }
@@ -106,12 +112,19 @@
       .good-text {
         flex: 8;
         padding-left: 1rem;
-
-        > div:last-child {
-          padding: .8rem .3rem 0 .1rem;
-          display: flex;
-          justify-content: space-between;
+        .good-info{
+          > div:last-child {
+            padding: .8rem .3rem 0 .1rem;
+            display: flex;
+            justify-content: space-between;
+            font-size: .9rem;
+          }
+        }
+        .good-total{
           font-size: .9rem;
+          color: #f10;
+          text-align: right;
+          padding-bottom: .5rem;
         }
       }
     }
