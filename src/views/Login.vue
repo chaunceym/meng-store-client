@@ -30,6 +30,10 @@
         <van-button @click="loginAction" :loading="openLoading" type="primary" size="large">马上登录
         </van-button>
       </div>
+      <div class="to-register">
+        没有账号,
+        <router-link to="register">请注册</router-link>
+      </div>
     </div>
 
   </div>
@@ -115,6 +119,14 @@
     border-radius: 5px;
     margin: 20px auto;
     padding-bottom: 50px;
+  }
+  .to-register{
+    padding: .3rem;
+
+    a {
+      color: #ff1100;
+      text-decoration: underline;
+    }
   }
 
   .register-button {

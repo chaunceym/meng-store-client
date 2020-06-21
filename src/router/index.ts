@@ -6,6 +6,7 @@ import Login from '@/views/Login.vue';
 import Good from '@/views/Good.vue';
 import CategoryList from '@/views/CategoryList.vue';
 import Cart from '@/views/Cart.vue';
+import User from '@/views/User.vue';
 
 Vue.use(VueRouter);
 
@@ -16,6 +17,7 @@ const routes: Array<RouteConfig> = [
   {path: '/good', name: 'Good', component: Good},
   {path: '/category-list', name: 'CategoryList', component: CategoryList},
   {path: '/cart', name: 'Cart', component: Cart},
+  {path: '/user', name: 'User', component: User},
 
 ];
 
