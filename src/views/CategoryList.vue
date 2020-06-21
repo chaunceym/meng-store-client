@@ -34,7 +34,7 @@
                   <div class="list-item-text">
                     <div>{{item.NAME}}</div>
                     <div>
-                      <span>￥ {{filter(item.PRESENT_PRICE)}}</span>
+                      <span>￥{{filter(item.PRESENT_PRICE)}}</span>
                       <van-button type="danger" size="mini">购买</van-button>
                     </div>
                   </div>
@@ -186,8 +186,8 @@
 
     mounted() {
       const winHeight = document.documentElement.clientHeight;
-      this.leftNavHeight = winHeight - 46 + 'px';
-      this.listDiv = winHeight - 90 + 'px';
+      this.leftNavHeight = winHeight - 46 - 50 + 'px';
+      this.listDiv = winHeight - 90 - 50 + 'px';
     }
   }
 </script>
@@ -218,9 +218,10 @@
 
       > .list-item-text {
         flex: 18;
+        padding-left: .5rem;
 
         > div:last-child {
-          margin: 1rem 0.5rem;
+          margin: 1rem 0.1rem;
           display: flex;
           color: #ff1100;
           align-items: center;

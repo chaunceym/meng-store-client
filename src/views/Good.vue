@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="good-wrapper">
     <div class="navbar-div">
       <van-nav-bar
         title="商品详情"
@@ -132,8 +132,14 @@
 </script>
 
 <style lang="scss" scoped>
+  .good-wrapper{
+    text-align: center;
+  }
   .good-name {
     padding-top: .5rem;
+  }
+  .goods-price{
+    color: #ff1100;
   }
 
   .detail {
